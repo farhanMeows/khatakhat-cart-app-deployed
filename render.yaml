@@ -7,10 +7,9 @@ services:
   # Backend Web Service
   - type: web
     name: cartsync-backend
-    env: node
+    env: docker
     rootDir: backend
-    buildCommand: npm install
-    startCommand: npm start
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /
     envVars:
       - key: NODE_ENV

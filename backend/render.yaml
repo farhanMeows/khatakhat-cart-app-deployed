@@ -7,10 +7,8 @@ services:
   # Backend Web Service
   - type: web
     name: cartsync-backend
-    runtime: node
-    plan: free
-    buildCommand: npm install
-    startCommand: npm start
+    env: docker
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
