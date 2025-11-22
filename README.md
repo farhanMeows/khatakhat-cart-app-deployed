@@ -109,7 +109,7 @@ npx react-native run-ios
    # Start PostgreSQL container
    cd backend
    docker-compose up -d
-   
+
    # Verify PostgreSQL is running
    docker ps
    ```
@@ -120,7 +120,7 @@ npx react-native run-ios
    # macOS
    brew install postgresql@14
    brew services start postgresql@14
-   
+
    # Ubuntu/Debian
    sudo apt update
    sudo apt install postgresql postgresql-contrib
@@ -137,14 +137,14 @@ npx react-native run-ios
    DB_USER=cartsync
    DB_PASSWORD=cartsync123
    DB_NAME=cartsync_db
-   
+
    # JWT Configuration
    JWT_SECRET=your-secret-key-here-change-in-production
-   
+
    # Admin Credentials
    ADMIN_USERNAME=admin
    ADMIN_PASSWORD=admin123
-   
+
    # Server Configuration
    PORT=5001
    NODE_ENV=development
@@ -155,7 +155,7 @@ npx react-native run-ios
    ```bash
    cd backend
    npm install
-   
+
    # Run migrations to create tables
    npm run migrate
    ```
@@ -515,7 +515,7 @@ CREATE TABLE location_history (
 
 ### Backend Issues
 
-- **PostgreSQL connection failed**: 
+- **PostgreSQL connection failed**:
   - Check Docker container is running: `docker ps`
   - Verify credentials in `.env` match `docker-compose.yml`
   - Check port 5433 is not in use: `lsof -i :5433`

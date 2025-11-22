@@ -1,12 +1,14 @@
 # 🚀 Deploy CartSync Backend to Render.com (FREE)
 
 ## Prerequisites
+
 - GitHub account
 - Your code pushed to GitHub (already done ✅)
 
 ## Step-by-Step Deployment
 
 ### 1. Create Render Account
+
 1. Go to https://render.com
 2. Click "Get Started for Free"
 3. Sign up with GitHub
@@ -14,6 +16,7 @@
 ### 2. Deploy from GitHub
 
 #### Option A: Using Blueprint (Automatic - Recommended)
+
 1. Click "New +" → "Blueprint"
 2. Connect your GitHub repository: `Khatakhat/khatakhat-cart-app`
 3. Render will detect `backend/render.yaml`
@@ -22,9 +25,11 @@
 6. Wait 5-10 minutes for deployment
 
 #### Option B: Manual Setup
+
 If blueprint doesn't work:
 
 **2.1 Create PostgreSQL Database**
+
 1. Dashboard → "New +" → "PostgreSQL"
 2. Settings:
    - Name: `cartsync-db`
@@ -36,6 +41,7 @@ If blueprint doesn't work:
 4. **Copy** the "Internal Database URL" (you'll need this)
 
 **2.2 Create Web Service**
+
 1. Dashboard → "New +" → "Web Service"
 2. Connect your repository
 3. Settings:
@@ -75,14 +81,17 @@ CORS_ORIGIN=*
 ### 3. Run Database Migrations
 
 After deployment:
+
 1. Go to your web service
 2. Click "Shell" tab
 3. Run:
+
 ```bash
 npm run migrate
 ```
 
 Or connect manually:
+
 1. Get database connection string
 2. Use TablePlus/pgAdmin to connect
 3. Run SQL from `backend/src/database/schema.sql`
@@ -90,6 +99,7 @@ Or connect manually:
 ### 4. Get Your Backend URL
 
 Your backend will be available at:
+
 ```
 https://cartsync-backend.onrender.com
 ```
@@ -107,20 +117,23 @@ You should see the API welcome message.
 ### 6. Update Frontend Apps
 
 **Dashboard** (`dashboard/.env`):
+
 ```env
 VITE_API_URL=https://cartsync-backend.onrender.com
 VITE_SOCKET_URL=https://cartsync-backend.onrender.com
 ```
 
 **Mobile App** (`cartSync/src/config/constants.js`):
+
 ```javascript
-export const API_URL = 'https://cartsync-backend.onrender.com';
+export const API_URL = "https://cartsync-backend.onrender.com";
 export const SOCKET_URL = API_URL;
 ```
 
 ## 🎯 Free Tier Limitations
 
 ### Render.com Free Tier:
+
 - ✅ 750 hours/month (enough for 24/7)
 - ✅ Free PostgreSQL (1GB storage)
 - ⚠️ Service sleeps after 15 minutes of inactivity
@@ -128,9 +141,11 @@ export const SOCKET_URL = API_URL;
 - ✅ 100GB bandwidth/month
 
 ### How to Handle Sleep Mode:
+
 The backend sleeps after 15 min of inactivity but wakes up automatically when accessed.
 
 **Solutions:**
+
 1. **Accept it** - For testing/development, 30s wake-up is fine
 2. **Ping service** - Use a free cron job to ping every 14 minutes:
    - Use https://cron-job.org (free)
@@ -152,6 +167,7 @@ git push origin main
 ## 📊 Monitoring
 
 In Render dashboard:
+
 - View logs in real-time
 - Monitor CPU/Memory usage
 - See request metrics
@@ -160,32 +176,36 @@ In Render dashboard:
 ## 🐛 Troubleshooting
 
 ### Build Failed
+
 - Check logs in Render dashboard
 - Verify `package.json` has all dependencies
 - Ensure `npm install` works locally
 
 ### Database Connection Failed
-- Verify DATABASE_URL or individual DB_* variables are set
+
+- Verify DATABASE*URL or individual DB*\* variables are set
 - Check database is running (should be always on)
 - Verify internal database URL (not external) is used
 
 ### CORS Errors
+
 - Set `CORS_ORIGIN=*` for testing
 - For production, set to your dashboard URL
 
 ### Service Keeps Sleeping
+
 - Use cron-job.org to ping every 14 minutes (free)
 - Or upgrade to paid plan ($7/month)
 
 ## 💰 Cost Comparison
 
-| Service | Free Tier | Paid |
-|---------|-----------|------|
-| **Render** | ✅ Free forever | $7/month for always-on |
-| **Railway** | $5 credit/month | $5-20/month |
-| **Heroku** | ❌ No free tier | $7/month |
-| **DigitalOcean** | ❌ No free tier | $6/month |
-| **AWS** | 12 months free | Complex pricing |
+| Service          | Free Tier       | Paid                   |
+| ---------------- | --------------- | ---------------------- |
+| **Render**       | ✅ Free forever | $7/month for always-on |
+| **Railway**      | $5 credit/month | $5-20/month            |
+| **Heroku**       | ❌ No free tier | $7/month               |
+| **DigitalOcean** | ❌ No free tier | $6/month               |
+| **AWS**          | 12 months free  | Complex pricing        |
 
 ## 🎉 Alternative: Railway.app
 
@@ -203,6 +223,7 @@ Railway gives you $5/month credit (enough for small app).
 ## 📝 Production Checklist
 
 Before going live:
+
 - [ ] Set strong `JWT_SECRET`
 - [ ] Set strong `ADMIN_PASSWORD`
 - [ ] Set specific `CORS_ORIGIN` (your dashboard URL)
