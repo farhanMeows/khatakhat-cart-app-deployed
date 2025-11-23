@@ -192,7 +192,7 @@ const HomeScreen = ({ navigation }) => {
         notificationService.showLocationUpdateNotification();
         showAlert(
           'Success',
-          'Location tracking started - Updates every 3 seconds',
+          'Location tracking started - Updates every 30 seconds',
           'success',
         );
         console.log('Tracking started successfully');
@@ -253,26 +253,6 @@ const HomeScreen = ({ navigation }) => {
         },
       ],
     );
-  };
-
-  const handleManualUpdate = async () => {
-    try {
-      const position = await locationService.getCurrentLocation();
-      await locationAPI.updateLocation(
-        position.coords.latitude,
-        position.coords.longitude,
-        position.coords.accuracy,
-      );
-
-      setCurrentLocation(position.coords);
-      setLastUpdate(new Date());
-      await AsyncStorage.setItem('lastLocationUpdate', Date.now().toString());
-
-      showAlert('Success', 'Location updated successfully', 'success');
-    } catch (error) {
-      console.error('Error updating location:', error);
-      showAlert('Error', 'Failed to update location', 'error');
-    }
   };
 
   const handleLogout = () => {
@@ -396,7 +376,7 @@ const HomeScreen = ({ navigation }) => {
         {isTracking && (
           <View style={styles.trackingInfo}>
             <Text style={styles.trackingStatus}>
-              ✓ Location updates every 3 seconds
+              ✓ Location updates every 30 seconds
             </Text>
           </View>
         )}
@@ -432,13 +412,6 @@ const HomeScreen = ({ navigation }) => {
             )}
           </>
         )}
-
-        <TouchableOpacity
-          style={styles.manualButton}
-          onPress={handleManualUpdate}
-        >
-          <Text style={styles.manualButtonText}>Update Location Now</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.card}>
@@ -447,7 +420,7 @@ const HomeScreen = ({ navigation }) => {
           • Keep the app running in the background for continuous tracking
         </Text>
         <Text style={styles.infoText}>
-          • You'll receive notifications every 30 minutes as a reminder
+          • You'll receive reminder notifications every 40 minutes during work hours (7 AM - 5 PM)
         </Text>
         <Text style={styles.infoText}>
           • Location updates are sent automatically every 30 seconds
@@ -646,18 +619,6 @@ const styles = StyleSheet.create({
     color: '#27ae60',
     fontSize: 14,
     fontWeight: '500',
-  },
-  manualButton: {
-    backgroundColor: '#3498db',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  manualButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: '600',
   },
   infoText: {
     fontSize: 14,

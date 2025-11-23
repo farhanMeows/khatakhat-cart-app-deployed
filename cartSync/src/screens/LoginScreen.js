@@ -5,22 +5,43 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Alert,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {authAPI} from '../services/api';
+import CustomAlert from '../components/CustomAlert';
 
 const LoginScreen = ({navigation}) => {
   const [cartId, setCartId] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Custom alert state
+  const [alertConfig, setAlertConfig] = useState({
+    visible: false,
+    title: '',
+    message: '',
+    type: 'info',
+  });
+
+  const showAlert = (title, message, type = 'info') => {
+    setAlertConfig({
+      visible: true,
+      title,
+      message,
+      type,
+    });
+  };
+
+  const hideAlert = () => {
+    setAlertConfig(prev => ({ ...prev, visible: false }));
+  };
+
   const handleLogin = async () => {
     if (!cartId || !password) {
-      Alert.alert('Error', 'Please enter Cart ID and password');
+      showAlert('Error', 'Please enter Cart ID and password', 'error');
       return;
     }
 
@@ -32,13 +53,16 @@ const LoginScreen = ({navigation}) => {
       await AsyncStorage.setItem('token', response.data.token);
       await AsyncStorage.setItem('cart', JSON.stringify(response.data.cart));
 
-      Alert.alert('Success', 'Login successful!');
-      navigation.replace('Home');
+      showAlert('Success', 'Login successful!', 'success');
+      setTimeout(() => {
+        navigation.replace('Home');
+      }, 1000);
     } catch (error) {
       console.error('Login error:', error);
-      Alert.alert(
+      showAlert(
         'Login Failed',
         error.response?.data?.error || 'Unable to login. Please check your credentials.',
+        'error'
       );
     } finally {
       setLoading(false);
@@ -98,6 +122,15 @@ const LoginScreen = ({navigation}) => {
         <Text style={styles.footer}>
           Contact your administrator to get cart credentials
         </Text>
+
+        {/* Custom Alert Modal */}
+        <CustomAlert
+          visible={alertConfig.visible}
+          title={alertConfig.title}
+          message={alertConfig.message}
+          type={alertConfig.type}
+          onDismiss={hideAlert}
+        />
       </View>
     </KeyboardAvoidingView>
   );
