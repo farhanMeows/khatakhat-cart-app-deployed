@@ -17,7 +17,9 @@ class CartStatusService {
       `   Checking every ${INACTIVITY_CHECK_INTERVAL / 1000} seconds`
     );
     console.log(
-      `   Marking inactive after ${INACTIVITY_THRESHOLD / 1000} seconds without updates\n`
+      `   Marking inactive after ${
+        INACTIVITY_THRESHOLD / 1000
+      } seconds without updates\n`
     );
 
     // Run immediately on start
@@ -74,7 +76,9 @@ class CartStatusService {
           }
 
           console.log(
-            `   ❌ ${cart.cartId} (${cart.name}) marked as inactive - Last seen: ${cart.lastSeen.toLocaleTimeString()}`
+            `   ❌ ${cart.cartId} (${
+              cart.name
+            }) marked as inactive - Last seen: ${cart.lastSeen.toLocaleTimeString()}`
           );
         }
       }

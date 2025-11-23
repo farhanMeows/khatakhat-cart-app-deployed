@@ -36,6 +36,7 @@
 1. Dashboard → Click "New +" → "Web Service"
 2. Click "Connect a repository" → Select: `farhanMeows/khatakhat-cart-app-deployed`
 3. Configure Basic Settings:
+
    - **Name**: `cartsync-backend`
    - **Region**: Same as your database
    - **Branch**: `main`
@@ -44,6 +45,7 @@
    - **Plan**: **Free**
 
 4. Click "Advanced" → Add Environment Variables:
+
    ```
    NODE_ENV=production
    PORT=5001
@@ -51,8 +53,9 @@
    ADMIN_PASSWORD=YourSecurePassword123!
    CORS_ORIGIN=*
    ```
-   
+
    Example:
+
    ```
    DATABASE_URL=postgresql://cartsync:abc123xyz@dpg-crqj8n8gph6c738u9abc-a/cartsync
    ```
@@ -77,9 +80,11 @@ npm run migrate
 Or connect manually:
 
 1. Get database connection string
+
 ### 4. Monitor Deployment
 
 Watch the build logs in Render dashboard:
+
 1. You'll see Docker building the image
 2. Installing dependencies
 3. Starting the server
@@ -103,8 +108,9 @@ curl https://cartsync-backend.onrender.com
 ```
 
 You should see:
+
 ```json
-{"message":"CartSync API is running"}
+{ "message": "CartSync API is running" }
 ```
 
 ### 7. Update CORS for Dashboard

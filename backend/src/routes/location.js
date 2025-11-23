@@ -34,7 +34,7 @@ router.post("/update", authMiddleware, async (req, res) => {
     // Update cart's last location and last seen (flattened fields for PostgreSQL)
     const timestamp = new Date();
     const wasOffline = !cart.isOnline;
-    
+
     cart.lastLocationLatitude = latitude;
     cart.lastLocationLongitude = longitude;
     cart.lastLocationAccuracy = accuracy || null;
