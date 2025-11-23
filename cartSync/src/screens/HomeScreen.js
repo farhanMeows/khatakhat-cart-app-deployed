@@ -13,7 +13,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authAPI, locationAPI } from '../services/api';
 import locationService from '../services/locationService';
 import backgroundLocationService from '../services/backgroundService';
-import socketService from '../services/socket';
 import notificationService from '../services/notificationService';
 import reminderService from '../services/reminderService';
 import nativeReminderService from '../services/nativeReminderService';
@@ -90,16 +89,6 @@ const HomeScreen = ({ navigation }) => {
       if (cartData) {
         const parsedCart = JSON.parse(cartData);
         setCart(parsedCart);
-
-        // Connect to socket (don't wait for it, let it connect in background)
-        socketService
-          .connect(parsedCart.cartId)
-          .then(() => {
-            console.log('Socket connection established');
-          })
-          .catch(error => {
-            console.error('Socket connection failed:', error);
-          });
       }
 
       const lastUpdateTime = await AsyncStorage.getItem('lastLocationUpdate');
@@ -272,7 +261,6 @@ const HomeScreen = ({ navigation }) => {
                 locationService.stopWatchingLocation();
               }
 
-              socketService.disconnect();
               await authAPI.logout();
               notificationService.cancelAll();
 
@@ -298,17 +286,7 @@ const HomeScreen = ({ navigation }) => {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>CartSync</Text>
-        <View style={styles.connectionStatus}>
-          <View
-            style={[
-              styles.statusDot,
-              isTracking ? styles.statusOnline : styles.statusOffline,
-            ]}
-          />
-          <Text style={styles.statusText}>
-            {isTracking ? 'Sharing Location' : 'Not Sharing'}
-          </Text>
-        </View>
+        <Text style={styles.subtitle}>Real-time Location Tracking</Text>
       </View>
 
       <View style={styles.card}>
@@ -466,27 +444,12 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 10,
+    marginBottom: 5,
   },
-  connectionStatus: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  statusDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginRight: 8,
-  },
-  statusOnline: {
-    backgroundColor: '#27ae60',
-  },
-  statusOffline: {
-    backgroundColor: '#e74c3c',
-  },
-  statusText: {
+  subtitle: {
+    fontSize: 16,
     color: '#fff',
-    fontSize: 14,
+    opacity: 0.9,
   },
   card: {
     backgroundColor: '#fff',
