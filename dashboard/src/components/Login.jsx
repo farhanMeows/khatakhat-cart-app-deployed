@@ -74,9 +74,7 @@ const Login = () => {
             fontSize: "14px",
             color: "#999",
           }}
-        >
-          Default: admin / admin123
-        </p>
+        ></p>
       </div>
     </div>
   );
