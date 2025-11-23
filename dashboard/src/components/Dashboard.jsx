@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [editingCart, setEditingCart] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -184,7 +185,16 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <div className="sidebar">
+      <button className="mobile-menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
+        <button className="sidebar-close" onClick={() => setSidebarOpen(false)}>
+          ×
+        </button>
         <div className="sidebar-header">
           <h2>CartSync</h2>
           <p>Real-time Cart Tracking</p>
@@ -200,7 +210,10 @@ const Dashboard = () => {
           <CartList
             carts={carts}
             selectedCart={selectedCart}
-            onSelectCart={setSelectedCart}
+            onSelectCart={(cart) => {
+              setSelectedCart(cart);
+              setSidebarOpen(false);
+            }}
             onCreateCart={handleCreateCart}
             onEditCart={handleEditCart}
             onDeleteCart={handleDeleteCart}
