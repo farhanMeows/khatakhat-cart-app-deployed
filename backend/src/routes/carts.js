@@ -18,7 +18,7 @@ router.get("/", authMiddleware, adminOnly, async (req, res) => {
 });
 
 // Create new cart (Admin only)
-router.post("/", authMiddleware, adminOnly, async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const { cartId, password, name, description } = req.body;
 
