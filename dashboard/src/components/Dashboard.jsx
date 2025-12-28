@@ -179,6 +179,10 @@ const Dashboard = () => {
     return (
       <div className="loading">
         <h2>Loading...</h2>
+        <p style={{ marginTop: "8px", fontSize: "14px", color: "#666" }}>
+          First load might be slow because the backend runs on Render’s free
+          tier. Thanks for your patience 🙂
+        </p>
       </div>
     );
   }
