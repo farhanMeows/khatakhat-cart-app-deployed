@@ -22,7 +22,7 @@ const CARTS = [
   {
     cartId: "cart001",
     password: "qwerty",
-    name: "Veggies Cart",
+    name: "Simulation Cart 1",
     // Route: Around Ima Keithel (Women's Market)
     route: [
       { lat: 24.812, lng: 93.936 }, // Ima Keithel Market
@@ -39,7 +39,7 @@ const CARTS = [
   {
     cartId: "cart002",
     password: "qwerty",
-    name: "Cloths Cart",
+    name: "Simulation Cart 2",
     // Route: Around Paona Bazaar and residential areas
     route: [
       { lat: 24.82, lng: 93.94 }, // Paona Bazaar

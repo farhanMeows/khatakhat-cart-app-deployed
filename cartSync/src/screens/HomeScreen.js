@@ -285,7 +285,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>CartSync</Text>
+        <Text style={styles.title}>KhataKhat CartSync</Text>
         <Text style={styles.subtitle}>Real-time Location Tracking</Text>
       </View>
 

@@ -42,6 +42,9 @@ const Login = () => {
         <p style={{ textAlign: "center", marginBottom: "20px", color: "#666" }}>
           Admin Login
         </p>
+        <p style={{ textAlign: "center", marginBottom: "20px", color: "#666" }}>
+          UserName - admin && Pass - admin123
+        </p>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Username</label>
