@@ -8,7 +8,7 @@ const { connectDB } = require("./config/database");
 const setupSocketIO = require("./services/socketService");
 const CartStatusService = require("./services/cartStatusService");
 const { startSimulation } = require("./locationSimulationService");
-
+const seedCarts = require("./services/cartSeeder");
 // Import routes
 const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/carts");
@@ -49,6 +49,7 @@ const initializeServer = async () => {
   // Start cart status monitoring service (after DB is ready)
   const cartStatusService = new CartStatusService(io);
   cartStatusService.start();
+  await seedCarts();
   await startSimulation();
 };
 
